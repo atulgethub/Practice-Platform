@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cart</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+}
+h1{
+    background-color: aqua;
+    padding: 10px;
+}
+
+.box{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+.card{
+    border: 2px solid black;
+    padding: 20px;
+    background: white;
+}
+.filter-box{
+    text-align: center;
+    margin: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Product</h1>
+
+<div class="filter-box">
+    <select id="filter" onchange="filterData()">
+        <option value="all">All</option>
+        <option value="19">Age 19</option>
+        <option value="20">Age 20</option>
+        <option value="21">Age 21</option>
+    </select>
+</div>
+
+<div class="box" id="show"></div>
+<div id="city" class="city"></div>
+
+<script>
+const product = [
+    {name: "Atul yadav", age:21, city:"Deoria"},
+    {name: "Ayush yadav", age:19, city:"Deoria"},
+    {name:"Pritam singh", age:19, city:"Pinali"},
+    {name:"Kunal yadav", age:20, city:"Gaya"}
+];
+
+function display(list){
+    const html = list.map(item => `
+        <div class="card">
+            <h3>${item.name}</h3>
+            <p>Age: ${item.age}</p>
+            <p>City: ${item.city}</p>
+        </div>
+    `).join("");
+
+    document.getElementById("show").innerHTML = html;
+}
+
+function filterData(){
+    const value = document.getElementById("filter").value;
+
+    if(value === "all"){
+        display(product);
+    } else {
+        const result = product.filter(p => p.age == value);
+        display(result);
+    }
+}
+
+display(product);
+</script>
+
+</body>
+</html>
